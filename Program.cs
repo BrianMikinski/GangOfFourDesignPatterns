@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GangOfFourDesignPatterns.Creational;
+using GangOfFourDesignPatterns.Structural;
 
 namespace GangOfFourDesignPatterns
 {
@@ -11,6 +12,10 @@ namespace GangOfFourDesignPatterns
             Console.WriteLine("Welcome to the Gang of Four Design Patterns! \n");
 
             var insurancePolicies = CreationalPatterns();
+
+            StructuralPatterns(insurancePolicies);
+
+
         }
 
         public static IEnumerable<InsurancePolicy> CreationalPatterns()
@@ -36,16 +41,21 @@ namespace GangOfFourDesignPatterns
             };
         }
 
-        public static void StructuralPatterns()
+        public static void StructuralPatterns(IEnumerable<InsurancePolicy> policies)
         {
+            var printer = new DocumentPrinter();
+            var policyAdapter = new PolicyDocumentAdapter();
 
+            foreach(var policy in policies)
+            {
+                policyAdapter.SetPolicy(policy);
+                printer.PrintDocument(policyAdapter);
+            }
         }
 
         public static void BehavioralPatterns()
         {
 
         }
-
-
     }
 }
